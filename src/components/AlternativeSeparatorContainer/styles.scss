@@ -1,0 +1,25 @@
+.alternative-entry-text-container {
+    margin: 10px auto 18px;
+    width: 270px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    .alternative-entry-text {
+        color: #8e8e8e;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 15px;
+        margin: 0 18px;
+        flex-grow: 0;
+    }
+
+    .text-side-border {
+        background-color: #dbdbdb;
+        height: 1px;
+        position: relative;
+        top: 0.45em;
+        flex-grow: 1;
+    }
+}

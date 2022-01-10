@@ -1,0 +1,22 @@
+:root {
+    --button-enabled: #0195f7;
+    --buton-disabled: #0095f74d;
+    --button-enabled-active: #4CB5F9;
+}
+
+body {
+    background: #fafafa;
+    @media only screen and (max-width: 450px) {
+        background: #fff;
+    }
+}
+
+body, button, input, textarea {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+a {
+    text-decoration: none;
+}

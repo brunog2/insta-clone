@@ -1,0 +1,10 @@
+.loading-animation {
+    height: 18px;
+    width: 18px;
+    margin: auto;
+}
+
+
+.animation-vector {
+    animation: 0.8s steps(8) 0s infinite normal none running IGCoreSpinnerSpin8;
+}
