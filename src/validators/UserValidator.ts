@@ -3,7 +3,7 @@ import libphonenumber from 'google-libphonenumber';
 class UserValidator {
     
     public nameValidator(full_name: string) {
-        if (full_name.replace(/\s/g, "").length > 5) {
+        if (full_name.replace(/\s/g, "").length > 1 && full_name.replace(/\s/g, "").length <= 30) {
             return true;
         } else return false;
     }
@@ -32,7 +32,7 @@ class UserValidator {
     }
 
     public passwordValidator(password: string) {
-        if (password.length > 5) return true;
+        if (password.length > 5)  return true;
         else return false;
     }
 }

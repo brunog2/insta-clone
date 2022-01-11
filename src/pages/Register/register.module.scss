@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     height: 100%;
 }
 
@@ -10,7 +11,7 @@ html, body {
     align-items: center;
 }
 
-.formContainer {    
+.formContainer {
     border: solid 1px #dbdbdb;
     width: 350px;
     display: flex;
@@ -19,7 +20,7 @@ html, body {
     padding: 10px 0;
     margin-bottom: 10px;
     background-color: #fff;
-    @media screen and (max-width: 450px){
+    @media screen and (max-width: 450px) {
         border: none;
         background-color: #fff;
     }
@@ -84,6 +85,16 @@ html, body {
 
     Button {
         margin: 8px auto;
+    }
+}
+
+.warningContainer {
+    margin: 10px 40px;
+    text-align: center;
+    .spanWarning {
+        color: #ed4956;
+        font-size: 14px;
+        line-height: 18px;
     }
 }
 
