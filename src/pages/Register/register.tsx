@@ -71,11 +71,12 @@ const Register: React.FC = () => {
     }, 1000, { 'maxWait': 2000 }), [])
 
     useEffect(() => {
+        console.log(validEmail, validPhone, validUsername, validPassword, validFullname)
         setUpdates(updates + 1);
 
         if (emailOrPhone.length > 0 && fullName.length > 0 && username.length > 0 && password.length > 5) {
             setbuttonStyle("enabled");
-        } else if (buttonStyle != "disabled") {
+        } else if (buttonStyle !== "disabled") {
             setbuttonStyle("disabled");
         }
     }, [emailOrPhone, fullName, username, password])
@@ -189,31 +190,33 @@ const Register: React.FC = () => {
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <Input value={emailOrPhone} name="emailOrPhone" placeholder="Número de celular ou email"
                         onChange={(e) => setEmailOrPhone((e.target as HTMLTextAreaElement).value)}
-                        statusType={
-                            ((validPhone?.valid && !validPhone.alreadyUsed) || (validEmail?.valid && !validEmail.alreadyUsed) && updates > 1) ?
-                                "valid" : updates > 1 ? "error" : undefined
+                        statusType={validEmail === undefined || validPhone === undefined ? undefined :
+                            validPhone?.valid && !validPhone.alreadyUsed ? "valid" :
+                                validEmail?.valid && !validEmail.alreadyUsed ? "valid" :
+                                    "error"
                         } />
 
                     <Input value={fullName} name="fullName" placeholder="Nome completo"
                         onChange={(e) => setFullName((e.target as HTMLTextAreaElement).value)}
                         statusType={
-                            validFullname?.valid && updates > 1 ?
-                                "valid" : updates > 1 ? "error" : undefined
+                            validFullname === undefined ? undefined
+                                : validFullname?.valid && updates > 1 ? "valid"
+                                    : updates > 1 ? "error" : undefined
                         } />
 
                     <Input value={username} name="username" placeholder="Nome de usuário"
                         onChange={(e) => setUsername((e.target as HTMLTextAreaElement).value)}
                         statusReload={generatedUsername.length > 0}
-                        statusType={
-                            validUsername?.valid && !validUsername.alreadyUsed && updates > 1 ?
-                                "valid" : updates > 1 ? "error" : undefined
+                        statusType={validUsername === undefined ? undefined :
+                            validUsername?.valid && !validUsername.alreadyUsed ? "valid" :
+                                "error"
                         } />
 
                     <Input value={password} name="password" placeholder="Senha" type="password"
                         onChange={(e) => setPassword((e.target as HTMLTextAreaElement).value)}
                         statusType={
                             validPassword?.valid && updates > 1 ?
-                                "valid" : updates > 1 ? "error" : undefined
+                                "valid" : password?.length > 0 && updates > 1 ? "error" : undefined
                         } />
 
                     <Button type="submit" value="Cadastre-se" buttonStyle={buttonStyle} />
