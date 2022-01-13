@@ -43,14 +43,17 @@ const Register: React.FC = () => {
     const [validUsername, setValidUsername] = useState<ValidProps>();
     const [validPassword, setValidPassword] = useState<ValidProps>();
 
+
+    
     const navigate = useNavigate();
 
     const checkUser = useCallback(_debounce(async (column, value) => {
         console.log("fazendo consulta")
 
         if (column === "emailOrPhone") {
+            
             const emailValid = UserValidator.emailValidator(value);
-            const phoneValid = UserValidator.phoneValidator(emailOrPhone);
+            const phoneValid = UserValidator.phoneValidator(value);
             if (!emailValid && phoneValid) {
                 await api.get(`/users/phone/${value}`)
                     .then((response) => {
@@ -81,7 +84,7 @@ const Register: React.FC = () => {
                     }
                 })
         }
-    }, 500, { 'maxWait': 100 }), [])
+    }, 1000, { 'maxWait': 2000 }), [])
 
     useEffect(() => {
         setUpdates(updates + 1);
