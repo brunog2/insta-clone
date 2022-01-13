@@ -20,3 +20,13 @@ body, button, input, textarea {
 a {
     text-decoration: none;
 }
+
+.warningContainer {
+    margin: 10px 40px;
+    text-align: center;
+    .spanWarning {
+        color: #ed4956;
+        font-size: 14px;
+        line-height: 18px;
+    }
+}

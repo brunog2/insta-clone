@@ -45,33 +45,44 @@ const Register: React.FC = () => {
     const navigate = useNavigate();
 
     const checkUser = useCallback(_debounce(async (column, value) => {
-        if (column === "email") {
-            await api.get(`/users/email/${value}`)
-                .then((response) => {
-                    console.log(response.data)
-                    if (response.data.users) {
-                        setValidEmail({ valid: true, alreadyUsed: true })
-                    } else setValidEmail({ valid: true, alreadyUsed: false });
-                })
+        console.log("fazendo consulta")
+
+        if (column === "emailOrPhone") {
+            const emailValid = UserValidator.emailValidator(value);
+            const phoneValid = UserValidator.phoneValidator(emailOrPhone);
+            if (!emailValid && phoneValid) {
+                await api.get(`/users/phone/${value}`)
+                    .then((response) => {
+                        if (response.data.users) {
+                            setValidPhone({ valid: true, alreadyUsed: true })
+                        } else setValidPhone({ valid: true, alreadyUsed: false });
+                    })
+            } else if (!phoneValid && emailValid) {
+                await api.get(`/users/email/${value}`)
+                    .then((response) => {
+                        console.log(response.data)
+                        if (response.data.users) {
+                            setValidEmail({ valid: true, alreadyUsed: true })
+                        } else setValidEmail({ valid: true, alreadyUsed: false });
+                    })
+            } else {
+                setValidPhone({ valid: false });
+                setValidEmail({ valid: false });
+            }
+
         } else if (column === "username") {
             await api.get(`/users/${value}`)
                 .then((response) => {
                     if (response.data.users) {
                         setValidUsername({ valid: true, alreadyUsed: true })
-                    } else setValidUsername({ valid: true, alreadyUsed: false });
-                })
-        } else {
-            await api.get(`/users/phone/${value}`)
-                .then((response) => {
-                    if (response.data.users) {
-                        setValidPhone({ valid: true, alreadyUsed: true })
-                    } else setValidPhone({ valid: true, alreadyUsed: false });
+                    } else {
+                        setValidUsername({ valid: true, alreadyUsed: false });
+                    }
                 })
         }
-    }, 1000, { 'maxWait': 2000 }), [])
+    }, 500, { 'maxWait': 100 }), [])
 
     useEffect(() => {
-        console.log(validEmail, validPhone, validUsername, validPassword, validFullname)
         setUpdates(updates + 1);
 
         if (emailOrPhone.length > 0 && fullName.length > 0 && username.length > 0 && password.length > 5) {
@@ -82,17 +93,8 @@ const Register: React.FC = () => {
     }, [emailOrPhone, fullName, username, password])
 
     useEffect(() => {
-        console.log(validEmail)
-        console.log(emailOrPhone)
         if (emailOrPhone.length > 0) {
-            if (!UserValidator.emailValidator(emailOrPhone) && UserValidator.phoneValidator(emailOrPhone)) {
-                checkUser("phone", emailOrPhone);
-            } else if (!UserValidator.phoneValidator(emailOrPhone) && UserValidator.emailValidator(emailOrPhone)) {
-                checkUser("email", emailOrPhone);
-            } else {
-                setValidPhone({ valid: false });
-                setValidEmail({ valid: false });
-            }
+            checkUser("emailOrPhone", emailOrPhone);
         } else if (emailOrPhone.length === 0 && updates > 1) {
             setValidPhone({ valid: false });
             setValidEmail({ valid: false });
@@ -101,7 +103,6 @@ const Register: React.FC = () => {
     }, [emailOrPhone])
 
     useEffect(() => {
-
         if (fullName.length > 0) {
             UserValidator.nameValidator(fullName) ? setValidFullname({ valid: true }) : setValidFullname({ valid: false });
         } else if (fullName.length === 0 && updates > 1) setValidFullname(undefined);
@@ -125,50 +126,52 @@ const Register: React.FC = () => {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
+        if (buttonStyle === "enabled") {
 
-        if (validUsername?.alreadyUsed) {
-            setSpanVisible({ visible: true, value: "Esse nome de usuário não está disponível." })
-        }
+            if (validUsername?.alreadyUsed) {
+                setSpanVisible({ visible: true, value: "Esse nome de usuário não está disponível." })
+            }
 
-        else if (!validEmail?.valid) {
-            setSpanVisible({ visible: true, value: "Insira um endereço de email válido." })
+            else if (!validEmail?.valid) {
+                setSpanVisible({ visible: true, value: "Insira um endereço de email válido." })
 
-        }
+            }
 
-        else if (validEmail?.alreadyUsed || validPhone?.alreadyUsed) {
-            setSpanVisible({ visible: true, value: `Outra conta está usando ${emailOrPhone}.` })
-        }
+            else if (validEmail?.alreadyUsed || validPhone?.alreadyUsed) {
+                setSpanVisible({ visible: true, value: `Outra conta está usando ${emailOrPhone}.` })
+            }
 
-        else if (validPhone?.alreadyUsed) {
-            setSpanVisible({ visible: true, value: "Parece que seu número de telefone está incorreto. Insira o número completo, incluindo o código de área." })
-        }
+            else if (validPhone?.alreadyUsed) {
+                setSpanVisible({ visible: true, value: "Parece que seu número de telefone está incorreto. Insira o número completo, incluindo o código de área." })
+            }
 
-        else if (!validFullname?.valid) {
-            setSpanVisible({ visible: true, value: "Insira um nome com menos de 30 caracteres." })
-        }
+            else if (!validFullname?.valid) {
+                setSpanVisible({ visible: true, value: "Insira um nome com menos de 30 caracteres." })
+            }
 
-        else if ((validEmail?.valid || validPhone?.valid) && validFullname?.valid && validUsername?.valid && validPassword?.valid) {
-            if (buttonStyle === "enabled") {
-                setbuttonStyle("loading");
+            else if ((validEmail?.valid || validPhone?.valid) && validFullname?.valid && validUsername?.valid && validPassword?.valid) {
+                if (buttonStyle === "enabled") {
+                    setbuttonStyle("loading");
 
-                const email = UserValidator.emailValidator(emailOrPhone) ? emailOrPhone : null
-                const phoneNumber = UserValidator.phoneValidator(emailOrPhone) ? emailOrPhone : null
+                    const email = UserValidator.emailValidator(emailOrPhone) ? emailOrPhone : null
+                    const phoneNumber = UserValidator.phoneValidator(emailOrPhone) ? emailOrPhone : null
 
-                api.post("/users", {
-                    email: email,
-                    phone_number: phoneNumber,
-                    full_name: fullName,
-                    username: username,
-                    password: password
-                })
-                    .then(function (response) {
-                        console.log(response);
-                        navigate('/login');
+                    api.post("/users", {
+                        email: email,
+                        phone_number: phoneNumber,
+                        full_name: fullName,
+                        username: username,
+                        password: password
                     })
-                    .catch(function (error) {
-                        console.log(error);
-                        setbuttonStyle("enabled");
-                    });
+                        .then(function (response) {
+                            console.log(response);
+                            navigate('/login');
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                            setbuttonStyle("enabled");
+                        });
+                }
             }
         }
     }
@@ -222,8 +225,8 @@ const Register: React.FC = () => {
                     <Button type="submit" value="Cadastre-se" buttonStyle={buttonStyle} />
 
                     {spanVisible?.visible ? (
-                        <div className={styles.warningContainer}>
-                            <span className={styles.spanWarning}>{spanVisible.value}</span>
+                        <div className="warningContainer">
+                            <span className="spanWarning">{spanVisible.value}</span>
 
                         </div>
                     ) : (

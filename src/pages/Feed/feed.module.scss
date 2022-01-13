@@ -1,13 +1,16 @@
-html,
-body {
+html, body {
     height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .mainContainer {
     margin-top: 5vh;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: column;    
     align-items: center;
 }
 
@@ -20,7 +23,7 @@ body {
     padding: 10px 0;
     margin-bottom: 10px;
     background-color: #fff;
-    @media screen and (max-width: 450px) {
+    @media screen and (max-width: 450px){
         border: none;
         background-color: #fff;
     }
@@ -35,45 +38,9 @@ body {
     width: 175px;
 }
 
-.subTitle {
-    text-align: center;
-    color: #8e8e8e;
-    font-size: 17px;
-    font-weight: 600;
-    line-height: 20px;
-    margin: 0 40px 10px;
-}
-
-.facebookEntry {
-    text-align: center;
-    display: inline;
-    position: relative;
-
-    .facebookLogo {
-        display: inline-block;
-        margin-right: 8px;
-        position: relative;
-        top: 2px;
-        background-image: url("../../assets/logo.png");
-        background-repeat: no-repeat;
-        background-position: -414px -300px;
-        height: 16px;
-        width: 16px;
-    }
-
-    a {
-        color: #fff;
-        text-transform: inherit;
-        font-size: 14px;
-        display: inline;
-        position: relative;
-        font-weight: 600;
-    }
-}
-
 .form {
     width: 100%;
-    margin: 0px auto 20px auto;
+    margin: 24px 0px 0px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -88,15 +55,50 @@ body {
     }
 }
 
-.postscript {
-    color: #8e8e8e;
-    font-size: 12px;
-    line-height: 16px;
-    margin: 10px 40px;
+.facebookEntry {
+    margin: 8px auto;
+    padding: 0;
     text-align: center;
+    cursor: pointer;
+    display: inline;
+    position: relative;
+
+    &:active {
+        opacity: 0.7;
+    }
+
+    .facebookLogo {
+        display: inline-block;
+        margin-right: 8px;
+        position: relative;
+        top: 3px;
+        background-image: url("../../assets/logo.png");
+        background-repeat: no-repeat;
+        background-position: -414px -259px;
+        height: 16px;
+        width: 16px;
+    }
 
     a {
+        color: #385185;
+        text-transform: inherit;
+        font-size: 14px;
+        display: inline;
+        position: relative;
         font-weight: 600;
-        cursor: pointer;
+    }
+}
+
+.passwordForgotten {
+    margin-top: 12px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #00376b;
+    font-size: 12px;
+    line-height: 16px;
+    cursor: pointer;
+
+    &:active {
+        opacity: 0.5;
     }
 }
