@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import api from '../../services/api'
 import _debounce from 'lodash/debounce';
 
@@ -84,7 +85,7 @@ const Register: React.FC = () => {
 
     useEffect(() => {
         setUpdates(updates + 1);
-
+        
         if (emailOrPhone.length > 0 && fullName.length > 0 && username.length > 0 && password.length > 5) {
             setbuttonStyle("enabled");
         } else if (buttonStyle !== "disabled") {
@@ -245,5 +246,9 @@ const Register: React.FC = () => {
         </div >
     )
 }
+
+const mapStateToProps = () => ({
+    
+});
 
 export default Register;
