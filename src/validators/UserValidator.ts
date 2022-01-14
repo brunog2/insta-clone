@@ -1,7 +1,7 @@
 import libphonenumber from 'google-libphonenumber';
 
 class UserValidator {
-    
+
     public nameValidator(full_name: string) {
         if (full_name.replace(/\s/g, "").length > 1 && full_name.replace(/\s/g, "").length <= 30) {
             return true;
@@ -9,20 +9,19 @@ class UserValidator {
     }
 
     public emailValidator(email: string) {
-        const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        if (email.match(mailformat)) {
-            return true;
-        } else return false;
+        return email.match(
+            /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
     }
 
     public phoneValidator(phone_number: string) {
         const phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
-        
+
         try {
             if (phoneUtil.isValidNumber(phoneUtil.parse(phone_number))) {
                 return true;
             } else return false;
-        } catch(err) {
+        } catch (err) {
         }
     }
 
@@ -32,7 +31,7 @@ class UserValidator {
     }
 
     public passwordValidator(password: string) {
-        if (password.length > 5)  return true;
+        if (password.length > 5) return true;
         else return false;
     }
 }

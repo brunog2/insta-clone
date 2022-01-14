@@ -43,15 +43,17 @@ const Register: React.FC = () => {
     const [validUsername, setValidUsername] = useState<ValidProps>();
     const [validPassword, setValidPassword] = useState<ValidProps>();
 
+    const [count, setCount] = useState<number>(0);
 
-    
     const navigate = useNavigate();
 
     const checkUser = useCallback(_debounce(async (column, value) => {
         console.log("fazendo consulta")
+        setCount(count + 1);
+        console.log("debouncer:", count)
 
         if (column === "emailOrPhone") {
-            
+
             const emailValid = UserValidator.emailValidator(value);
             const phoneValid = UserValidator.phoneValidator(value);
             if (!emailValid && phoneValid) {
@@ -88,7 +90,7 @@ const Register: React.FC = () => {
 
     useEffect(() => {
         setUpdates(updates + 1);
-        
+
         if (emailOrPhone.length > 0 && fullName.length > 0 && username.length > 0 && password.length > 5) {
             setbuttonStyle("enabled");
         } else if (buttonStyle !== "disabled") {
@@ -251,7 +253,7 @@ const Register: React.FC = () => {
 }
 
 const mapStateToProps = () => ({
-    
+
 });
 
 export default Register;

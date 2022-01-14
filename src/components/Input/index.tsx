@@ -14,11 +14,9 @@ interface InputProps {
 
 const Button: React.FC<InputProps> = (props) => {
     const [inputText, setInputText] = useState<string>(props.value);
-    const [statusType, setStatusType] = useState<string>("");
     const [statusReload, setStatusReload] = useState<string>("");
 
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-
         setInputText(e.target.value);
         props.onChange(e);
     }

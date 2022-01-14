@@ -1,0 +1,78 @@
+html, body {
+    height: 110%;
+}
+
+.headerMainContainer {
+    border-bottom: 1px solid #dbdbdb;
+    box-sizing: border-box;
+    margin: 0;
+    width: 100%;
+    height: 60px;
+    position: fixed;
+    top: 0;
+}
+
+.headerContentContainer {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    max-width: 975px;
+    width: 100%;
+    height: 60px;
+}
+
+.searchInputContainer {
+    @media only screen and (max-width: 640px) {
+        display: none;
+    }
+}
+
+.logoContainer {
+    flex: 1 0 127px;
+    margin-left: 20px;
+    img {
+        margin-top: 7px;
+        vertical-align: bottom;
+    }
+}
+
+.userActionsContainer {
+    margin-right: 20px;
+    flex: 1 0 127px;
+    display: flex;
+    flex-direction: row-reverse;
+    div {
+        margin-right: 22px;
+        display: flex;
+        align-items: center;
+    }
+    .home {
+        margin-left: 0;
+    }
+    .profile {
+        margin-right: 0;
+        position: relative;
+        img {
+            margin: auto;
+            height: 24px;
+            width: 24px;
+            border-radius: 12px;
+        }
+        div {
+            height: 28px;
+            width: 28px;
+            border-radius: 50%;
+            box-sizing: border-box;
+            position: absolute;
+            left: -2px;
+            bottom: -2px;
+            border: solid 1px #262626;
+            margin: auto;
+        }
+    }
+}
+
+.profile, .activity, .explore, .newPost, .direct, .feed {
+    cursor: pointer;
+}
