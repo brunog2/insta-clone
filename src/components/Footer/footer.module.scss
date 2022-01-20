@@ -1,0 +1,64 @@
+html,
+body {
+    height: 110%;
+}
+
+.footerMainContainer {
+    border-top: 1px solid #dbdbdb;
+    box-sizing: border-box;
+    margin: 0;
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    bottom: 0;
+    background: #fff;
+    
+}
+
+.footerContentContainer {
+    
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+    max-width: 975px;
+    width: 100%;
+    height: inherit;
+    
+}
+
+.home {
+    margin-left: 0;
+}
+.profile {
+    margin-right: 0;
+    position: relative;
+
+    img {
+        margin: auto;
+        height: 24px;
+        width: 24px;
+        border-radius: 12px;
+    }
+    div {
+        height: 28px;
+        width: 28px;
+        border-radius: 50%;
+        box-sizing: border-box;
+        position: absolute;
+        left: -2px;
+        bottom: -2px;
+        border: solid 1px #262626;
+        margin: auto;
+    }
+}
+
+.profile,
+.activity,
+.explore,
+.newPost,
+.direct,
+.feed {
+    cursor: pointer;
+}

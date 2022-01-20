@@ -4,7 +4,9 @@ import api from '../../services/api';
 
 import LoadingAnimation from '../../components/LoadingAnimation';
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 import Button from '../../components/Button';
+import Post from '../../components/Post';
 
 import styles from './feed.module.scss';
 
@@ -48,7 +50,15 @@ const Feed: React.FC = () => {
         return (
             <>
                 <Header selectedIcon='feed' />
-                
+                <div className={styles.mainContainer}>
+                    <Post></Post>
+                    <Post></Post>
+                    <Post></Post>
+                    <Post></Post>
+                    <Post></Post>
+                    <Post></Post>
+                </div>
+                <Footer selectedIcon='feed' className={styles.footer}/>
             </>
         )
     } else {

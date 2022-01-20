@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import SearchInput from './SearchInput';
-import Feed from './Navigation/Feed'
-import Direct from './Navigation/Direct'
-import Activity from './Navigation/Activity/activity';
-import NewPost from './Navigation/NewPost'
-import Explore from './Navigation/Explore'
-import Profile from './Navigation/Profile'
-
-
+import Feed from '../Icons/Feed'
+import Direct from '../Icons/Direct'
+import Activity from '../Icons/Activity';
+import NewPost from '../Icons/NewPost'
+import Explore from '../Icons/Explore'
+import Profile from '../Icons/Profile'
 
 import './styles.scss';
 import '../../styles/global.scss'

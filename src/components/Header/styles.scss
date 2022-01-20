@@ -10,6 +10,7 @@ html, body {
     height: 60px;
     position: fixed;
     top: 0;
+    background-color: white;
 }
 
 .headerContentContainer {
@@ -23,6 +24,7 @@ html, body {
 }
 
 .searchInputContainer {
+    
     @media only screen and (max-width: 640px) {
         display: none;
     }
@@ -30,7 +32,7 @@ html, body {
 
 .logoContainer {
     flex: 1 0 127px;
-    margin-left: 20px;
+    margin: 0 20px;
     img {
         margin-top: 7px;
         vertical-align: bottom;
@@ -38,7 +40,9 @@ html, body {
 }
 
 .userActionsContainer {
-    margin-right: 20px;
+    
+    
+    margin: 0 20px;
     flex: 1 0 127px;
     display: flex;
     flex-direction: row-reverse;
