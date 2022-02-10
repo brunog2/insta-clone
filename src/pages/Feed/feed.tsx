@@ -39,6 +39,7 @@ const Feed: React.FC = () => {
         // }
 
         //verifyAuth();
+        alert("vc ta no feed :)")
     }, []);
 
 
